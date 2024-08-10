@@ -22,30 +22,59 @@ import {
 export function CardWithForm() {
   return (
     <Card className="w-[350px]">
-      <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+      <CardHeader className="text-center">
+        <CardTitle>Get Your Taxi Buddy</CardTitle>
+        <CardDescription>Enter your Details Below</CardDescription>
       </CardHeader>
       <CardContent>
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" placeholder="Name of your project" />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework">Framework</Label>
-              <Select>
-                <SelectTrigger id="framework">
-                  <SelectValue placeholder="Select" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="next">Next.js</SelectItem>
-                  <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                  <SelectItem value="astro">Astro</SelectItem>
-                  <SelectItem value="nuxt">Nuxt.js</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="my-4 flex  justify-between gap-2 items-center">
+                <Label htmlFor="from " className="w-10">
+                  From:
+                </Label>
+                <Select>
+                  <SelectTrigger id="from">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    <SelectItem value="IIITK">IIITK</SelectItem>
+                    <SelectItem value="Kottayam">
+                      Kottayam Railway Station
+                    </SelectItem>
+                    <SelectItem value="Cochin International Airport">
+                      Cochin International Airport
+                    </SelectItem>
+                    <SelectItem value="Ernankulam Railway Station">
+                      Ernakulam Railway Station
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="my-4 flex  justify-between gap-2 items-center">
+                <Label htmlFor="to " className="w-10">
+                  To:
+                </Label>
+                <Select>
+                  <SelectTrigger id="to">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    {" "}
+                    <SelectItem value="IIITK">IIITK</SelectItem>
+                    <SelectItem value="Kottayam">
+                      Kottayam Railway Station
+                    </SelectItem>
+                    <SelectItem value="Cochin International Airport">
+                      Cochin International Airport
+                    </SelectItem>
+                    <SelectItem value="Ernankulam Railway Station">
+                      Ernakulam Railway Station
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         </form>
