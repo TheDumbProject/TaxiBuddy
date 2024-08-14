@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -18,8 +19,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Value } from "@radix-ui/react-select";
 
 export function CardWithForm() {
+  const locations = [
+    "IIITK",
+    "Kottayam Railway Station",
+    "Ernankulam Station",
+    "Cochin Internation Airport",
+  ];
+  const [selectedOption, setSelectedOption] = useState("");
+
+  useEffect(() => {
+    console.log();
+  });
   return (
     <Card className="w-[350px]">
       <CardHeader className="text-center">
@@ -34,21 +47,18 @@ export function CardWithForm() {
                 <Label htmlFor="from " className="w-10">
                   From:
                 </Label>
-                <Select>
+                <Select
+                  onValueChange={(value) => {
+                    setSelectedOption(value);
+                  }}
+                >
                   <SelectTrigger id="from">
-                    <SelectValue placeholder="Select" />
+                    <SelectValue placeholder="Select a Location" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    <SelectItem value="IIITK">IIITK</SelectItem>
-                    <SelectItem value="Kottayam">
-                      Kottayam Railway Station
-                    </SelectItem>
-                    <SelectItem value="Cochin International Airport">
-                      Cochin International Airport
-                    </SelectItem>
-                    <SelectItem value="Ernankulam Railway Station">
-                      Ernakulam Railway Station
-                    </SelectItem>
+                    {locations.map((l) => {
+                      return <SelectItem value={l}>{l}</SelectItem>;
+                    })}
                   </SelectContent>
                 </Select>
               </div>
@@ -56,22 +66,19 @@ export function CardWithForm() {
                 <Label htmlFor="to " className="w-10">
                   To:
                 </Label>
+
                 <Select>
                   <SelectTrigger id="to">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    {" "}
-                    <SelectItem value="IIITK">IIITK</SelectItem>
-                    <SelectItem value="Kottayam">
-                      Kottayam Railway Station
-                    </SelectItem>
-                    <SelectItem value="Cochin International Airport">
-                      Cochin International Airport
-                    </SelectItem>
-                    <SelectItem value="Ernankulam Railway Station">
-                      Ernakulam Railway Station
-                    </SelectItem>
+                    {locations
+                      .filter((items) => {
+                        return items != selectedOption;
+                      })
+                      .map((l) => {
+                        return <SelectItem value={l}>{l}</SelectItem>;
+                      })}
                   </SelectContent>
                 </Select>
               </div>
@@ -79,9 +86,8 @@ export function CardWithForm() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button>Deploy</Button>
+      <CardFooter className="flex justify-center">
+        <Button>Search</Button>
       </CardFooter>
     </Card>
   );
