@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 export default function Navbar() {
   return (
-    <div className="fixed top-0 left-0 right-0 bg-pirmary text-center h-14 text-black bg-yellow-400 flex justify-between">
+    <div className="fixed top-0 left-0 right-0 bg-pirmary text-center h-14 text-black bg-primary flex justify-between">
       <div className=" text-2xl px-8 flex justify-center items-center  font-semibold">
         <Link to="/">Taxi Buddy</Link>
       </div>
