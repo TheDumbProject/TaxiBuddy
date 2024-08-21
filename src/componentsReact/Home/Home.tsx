@@ -1,9 +1,8 @@
-import React from "react";
 import { CardWithForm } from "../MainCard";
 
 function Home() {
   return (
-    <div className="container h-dvh flex justify-center items-center ">
+    <div className="container mt-12 flex flex-col justify-center items-center ">
       <CardWithForm />
     </div>
   );
