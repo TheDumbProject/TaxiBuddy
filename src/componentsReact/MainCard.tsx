@@ -1,7 +1,8 @@
 import * as React from "react";
 import { FC, ReactElement } from "react";
-
+import { DatePicker } from "@/components/ui/datepicker";
 import { Button } from "@/components/ui/button";
+
 import {
   Card,
   CardContent,
@@ -21,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Value } from "@radix-ui/react-select";
+import { DateTimePicker } from "./TimePicker/DateTimePicker";
 
 export function CardWithForm() {
   const locations = [
@@ -38,7 +40,7 @@ export function CardWithForm() {
     console.log();
   });
   return (
-    <Card className="w-[350px]">
+    <Card className="w-[380px]">
       <CardHeader className="text-center">
         <CardTitle>Get Your Taxi Buddy</CardTitle>
         <CardDescription>Enter your Details Below</CardDescription>
@@ -85,6 +87,10 @@ export function CardWithForm() {
                       })}
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="timepicker flex items-center py-4 gap-2">
+                <Label className="datelabel w-10">Time:</Label>
+                <DateTimePicker />
               </div>
             </div>
           </div>
