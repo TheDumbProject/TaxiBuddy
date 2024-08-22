@@ -70,3 +70,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+::-webkit-scrollbar {
+  background-color: black;
+  width: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--secondary));
+  border-radius: 10px;
+}
