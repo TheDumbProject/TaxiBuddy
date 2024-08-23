@@ -2,6 +2,7 @@ import * as React from "react";
 import { FC, ReactElement } from "react";
 import { DatePicker } from "@/components/ui/datepicker";
 import { Button } from "@/components/ui/button";
+import { IoIosArrowDown } from "react-icons/io";
 
 import {
   Card,
@@ -40,19 +41,21 @@ export function CardWithForm() {
     console.log();
   });
   return (
-    <Card className="w-[380px]">
+    <Card className="w-[300px] md:w-[380px] border-[2px] ">
       <CardHeader className="text-center">
-        <CardTitle>Get Your Taxi Buddy</CardTitle>
-        <CardDescription>Enter your Details Below</CardDescription>
+        <CardTitle className="text-yellow-400 text-xl">
+          Get Your Taxi Buddy
+        </CardTitle>
+        <CardDescription>Enter Details Below</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <div className="my-4 flex  justify-between gap-2 items-center">
-                <Label htmlFor="from " className="w-10">
+          <div className="w-full items-center gap-4">
+            <div className="flex flex-col space-y-1.5 mx-5 items-center">
+              <div className="py-2 flex  justify-between gap-2 items-center w-full">
+                {/* <Label htmlFor="from " className="w-10">
                   From:
-                </Label>
+                </Label> */}
                 <Select
                   onValueChange={(value) => {
                     setSelectedOption(value);
@@ -68,14 +71,13 @@ export function CardWithForm() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="my-4 flex  justify-between gap-2 items-center">
-                <Label htmlFor="to " className="w-10">
-                  To:
-                </Label>
-
+              <div className="arrowicon">
+                <IoIosArrowDown className="text-yellow-400 text-3xl" />
+              </div>
+              <div className="py-2 flex  justify-between gap-2 items-center w-full">
                 <Select>
                   <SelectTrigger id="to">
-                    <SelectValue placeholder="Select" />
+                    <SelectValue placeholder="Select a location" />
                   </SelectTrigger>
                   <SelectContent position="popper">
                     {locations
@@ -88,15 +90,16 @@ export function CardWithForm() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="timepicker flex items-center py-4 gap-2">
-                <Label className="datelabel w-10">Time:</Label>
+              <div className="timepicker flex items-center py-4 gap-2 w-3/4">
                 <DateTimePicker />
               </div>
             </div>
           </div>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <Button type="submit">Search</Button>
+          <Button type="submit" className="text-md ">
+            Search
+          </Button>
         </CardFooter>
       </form>
     </Card>

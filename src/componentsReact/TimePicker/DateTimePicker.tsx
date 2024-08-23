@@ -27,10 +27,17 @@ export function DateTimePicker() {
       setDate(newDay);
       return;
     }
+    console.log(newDay);
+    console.log(format(date, "PPP"));
+    console.log(date.getTime());
     const diff = newDay.getTime() - date.getTime();
     const diffInDays = diff / (1000 * 60 * 60 * 24);
     const newDateFull = add(date, { days: Math.ceil(diffInDays) });
     setDate(newDateFull);
+    console.log(newDateFull);
+
+    console.log(new Date());
+    console.log(Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24)) - 1);
   };
 
   return (
@@ -39,12 +46,16 @@ export function DateTimePicker() {
         <Button
           variant={"outline"}
           className={cn(
-            "w-full justify-start text-left font-normal bg-card",
+            "w-full justify-center text-left font-normal bg-card ",
             !date && "text-muted-foreground"
           )}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP - HH:mm") : <span>Pick a date</span>}
+          <CalendarIcon className="mr-2 h-4 w-4  hidden md:block " />
+          {date ? (
+            format(date, "PP - HH:mm")
+          ) : (
+            <span className="">Select Time</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
@@ -53,7 +64,17 @@ export function DateTimePicker() {
           selected={date}
           onSelect={(d) => handleSelect(d)}
           initialFocus
-          disabled={(date) => date < new Date()}
+          disabled={
+            (date) => {
+              const currentDate = new Date();
+              currentDate.setDate(currentDate.getDate() - 1);
+
+              return date < currentDate;
+            }
+
+            // Math.floor(date.getTime() / (1000 * 60 * 60 * 24)) <
+            // Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24) - 1)
+          }
         />
         <div className="p-3 border-t border-border">
           <TimePickerDemo setDate={setDate} date={date} />
