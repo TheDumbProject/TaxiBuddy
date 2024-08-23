@@ -20,6 +20,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APPID,
   measurementId: import.meta.env.VITE_MEASUREMENTID,
 };
+
 const app = initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
@@ -55,8 +56,8 @@ export default function AuthPopup() {
     <div>
       <Card className="p-6 bg-[#1E1E1E] rounded-xl my-8 border-none">
         <div className="flex flex-col lg:flex-row w-full ">
-          <div className="flex flex-col  font-extrabold text-3xl mr-12 lg:w-[50%] lg:border-r-2 lg:border-yellow-400">
-            <CardHeader className="my-0">
+          <div className="flex flex-col  font-extrabold text-3xl lg:mr-12 lg:w-[50%] lg:border-r-2 lg:border-yellow-400 lg:text-left text-center">
+            <CardHeader className="my-0 ">
               Welcome to <span className="text-yellow-400">Taxi Buddy</span>
             </CardHeader>
             <CardDescription className="mx-6 my-2 lg:m-6 text-xl text-white font-semibold">
