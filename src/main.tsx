@@ -11,11 +11,13 @@ import Home from "./componentsReact/Home/Home.tsx";
 import About from "./componentsReact/About/About.tsx";
 import ContactUs from "./componentsReact/ContactUs/ContactUs.tsx";
 import MyBuddy from "./componentsReact/MyBuddy/MyBuddy.tsx";
-
+import BookingResults from "./componentsReact/BookingResults/BookingResults.tsx";
+import Error404 from "./componentsReact/Error404/Error404.tsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <Error404 />,
     children: [
       {
         path: "",
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "mybuddy",
         element: <MyBuddy />,
+      },
+      {
+        path: "results",
+        element: <BookingResults />,
       },
     ],
   },
