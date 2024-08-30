@@ -1,6 +1,3 @@
-import * as React from "react";
-import { FC, ReactElement } from "react";
-import { DatePicker } from "@/components/ui/datepicker";
 import { Button } from "@/components/ui/button";
 import { IoIosArrowDown } from "react-icons/io";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -12,8 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import {
   Select,
@@ -22,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Value } from "@radix-ui/react-select";
 import { DateTimePicker } from "./TimePicker/DateTimePicker";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -77,22 +71,26 @@ export function CardWithForm() {
         <CardContent>
           <div className="w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5 mx-5 items-center">
-              <div className="py-2 flex  justify-between gap-2 items-center w-full">
-                {/* <Label htmlFor="from " className="w-10">
-                  From:
-                </Label> */}
+              <div className="py-1 flex  justify-between gap-2 items-center w-full">
                 <Select
                   onValueChange={(value) => {
                     setSelectedOption(value);
                     setPlaceFrom(value);
                   }}
                 >
-                  <SelectTrigger id="from">
-                    <SelectValue placeholder="Select a Location" />
+                  <SelectTrigger className="rounded-[10px]" id="from">
+                    <SelectValue
+                      className="font-semibold"
+                      placeholder="Select a Location"
+                    />
                   </SelectTrigger>
-                  <SelectContent position="popper">
+                  <SelectContent className="rounded-[10px]" position="popper">
                     {locations.map((l) => {
-                      return <SelectItem value={l}>{l}</SelectItem>;
+                      return (
+                        <SelectItem className="rounded-[10px]" value={l}>
+                          {l}
+                        </SelectItem>
+                      );
                     })}
                   </SelectContent>
                 </Select>
@@ -101,23 +99,26 @@ export function CardWithForm() {
               <div className="arrowicon">
                 <IoIosArrowDown className="text-yellow-400 text-3xl" />
               </div>
+              <div className="py-1 flex  justify-between gap-2 items-center w-full">
+                <Select>
+                  <SelectTrigger className="rounded-[10px]" id="to">
+                    <SelectValue
+                      className="font-semibold"
+                      placeholder="Select a location"
+                    />
 
-              <div className="py-2 flex  justify-between gap-2 items-center w-full">
-                <Select
-                  onValueChange={(value) => {
-                    setPlaceTo(value);
-                  }}
-                >
-                  <SelectTrigger id="to">
-                    <SelectValue placeholder="Select a location" />
                   </SelectTrigger>
-                  <SelectContent position="popper">
+                  <SelectContent className="rounded-[10px]" position="popper">
                     {locations
                       .filter((items) => {
                         return items != selectedOption;
                       })
                       .map((l) => {
-                        return <SelectItem value={l}>{l}</SelectItem>;
+                        return (
+                          <SelectItem className="rounded-[10px]" value={l}>
+                            {l}
+                          </SelectItem>
+                        );
                       })}
                   </SelectContent>
                 </Select>
@@ -132,8 +133,11 @@ export function CardWithForm() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <Button type="submit" className="text-md " onClick={handleSubmit}>
-            {/* <Link to="/results">Search</Link> */}
+          <Button
+            type="submit"
+            className="rounded-[10px] font-semibold text-md "
+          >
+
             Search
           </Button>
         </CardFooter>

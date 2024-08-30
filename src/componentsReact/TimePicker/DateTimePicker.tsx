@@ -43,8 +43,8 @@ export function DateTimePicker({ setPreferedDate, preferedDate }) {
         <Button
           variant={"outline"}
           className={cn(
-            "w-full justify-center text-left font-normal bg-card ",
-            !date && "text-muted-foreground"
+            "w-full justify-center text-left font-normal bg-card rounded-[10px]",
+            !date && "text-muted-foreground",
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4  hidden md:block " />

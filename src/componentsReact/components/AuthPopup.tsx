@@ -8,38 +8,24 @@ import { FaGoogle } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { createClient } from "@supabase/supabase-js";
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_APIKEY,
-  authDomain: import.meta.env.VITE_AUTHDOMAIN,
-  projectId: import.meta.env.VITE_PROJECTID,
-  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSENGERSENDERID,
-  appId: import.meta.env.VITE_APPID,
-  measurementId: import.meta.env.VITE_MEASUREMENTID,
-};
+const supabase = createClient(
+  "https://ijmuglxftyucuzsslkni.supabase.co",
+  import.meta.env.VITE_SUPABASE_KEY,
+);
+const provider = "google";
 
-const app = initializeApp(firebaseConfig);
-
-const provider = new GoogleAuthProvider();
-
-provider.setCustomParameters({
-  prompt: "select_account",
-});
-const auth = getAuth();
-const signInWithGooglePopup = () => signInWithPopup(auth, provider);
-
+async function signIn() {
+  await supabase.auth.signInWithOAuth({
+    provider: provider,
+  });
+}
 const SignIn = () => {
-  const logGoogleUser = async () => {
-    const response = await signInWithGooglePopup();
-    console.log(response);
-  };
   return (
     <div className="w-full flex justify-center px-6">
       <Button
-        onClick={logGoogleUser}
+        onClick={signIn}
         variant="outline"
         className="w-full mb-6 flex items-center justify-center bg-[#1E1E1E] border-yellow-400 rounded-[6px]"
       >
