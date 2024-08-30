@@ -72,10 +72,12 @@
 }
 
 ::-webkit-scrollbar {
-  background-color: black;
+  background-color: #c2c0c4;
+  border-radius: 0.5rem;
   width: 12px;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--secondary));
+  /* background: hsl(var(--secondary)); */
+  background: #000814;
   border-radius: 10px;
 }

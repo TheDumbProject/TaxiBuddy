@@ -14,9 +14,12 @@ import {
 } from "@/components/ui/popover";
 import { TimePickerDemo } from "./time-picker-demo";
 
-export function DateTimePicker() {
+export function DateTimePicker({ setPreferedDate, preferedDate }) {
   const [date, setDate] = React.useState<Date>();
 
+  React.useEffect(() => {
+    setPreferedDate(date);
+  }, [date, setDate]);
   /**
    * carry over the current time when a user clicks a new day
    * instead of resetting to 00:00
@@ -27,17 +30,11 @@ export function DateTimePicker() {
       setDate(newDay);
       return;
     }
-    console.log(newDay);
-    console.log(format(date, "PPP"));
-    console.log(date.getTime());
+
     const diff = newDay.getTime() - date.getTime();
     const diffInDays = diff / (1000 * 60 * 60 * 24);
     const newDateFull = add(date, { days: Math.ceil(diffInDays) });
     setDate(newDateFull);
-    console.log(newDateFull);
-
-    console.log(new Date());
-    console.log(Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24)) - 1);
   };
 
   return (

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { IoIosArrowDown } from "react-icons/io";
-
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -18,6 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DateTimePicker } from "./TimePicker/DateTimePicker";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 export function CardWithForm() {
   const locations = [
@@ -26,14 +28,37 @@ export function CardWithForm() {
     "Ernankulam Station",
     "Cochin Internation Airport",
   ];
-  const handleSubmit = () => {
-    console.log("Submit clicked");
-  };
   const [selectedOption, setSelectedOption] = useState("");
+  const [placeTo, setPlaceTo] = useState("");
+  const [placeFrom, setPlaceFrom] = useState("");
+  const [preferedDate, setPreferedDate] = useState(null);
+  const [redirect, setRedirect] = useState(true);
+  let navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({
+      placeTo: placeTo,
+      placeFrom: placeFrom,
+      preferedDate: preferedDate,
+    });
+
+    if (redirect) {
+      navigate("/results", {
+        replace: true,
+        state: {
+          searchTo: placeTo,
+          searchFrom: placeFrom,
+          preferedDate: preferedDate,
+        },
+      });
+    }
+  };
 
   useEffect(() => {
     console.log();
   });
+
   return (
     <Card className="w-[300px] md:w-[380px] border-[2px] ">
       <CardHeader className="text-center">
@@ -42,7 +67,7 @@ export function CardWithForm() {
         </CardTitle>
         <CardDescription>Enter Details Below</CardDescription>
       </CardHeader>
-      <form onSubmit={handleSubmit}>
+      <form>
         <CardContent>
           <div className="w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5 mx-5 items-center">
@@ -50,6 +75,7 @@ export function CardWithForm() {
                 <Select
                   onValueChange={(value) => {
                     setSelectedOption(value);
+                    setPlaceFrom(value);
                   }}
                 >
                   <SelectTrigger className="rounded-[10px]" id="from">
@@ -69,6 +95,7 @@ export function CardWithForm() {
                   </SelectContent>
                 </Select>
               </div>
+
               <div className="arrowicon">
                 <IoIosArrowDown className="text-yellow-400 text-3xl" />
               </div>
@@ -79,6 +106,7 @@ export function CardWithForm() {
                       className="font-semibold"
                       placeholder="Select a location"
                     />
+
                   </SelectTrigger>
                   <SelectContent className="rounded-[10px]" position="popper">
                     {locations
@@ -96,7 +124,10 @@ export function CardWithForm() {
                 </Select>
               </div>
               <div className="timepicker flex items-center py-4 gap-2 w-3/4">
-                <DateTimePicker />
+                <DateTimePicker
+                  setPreferedDate={setPreferedDate}
+                  preferedDate={preferedDate}
+                />
               </div>
             </div>
           </div>
@@ -106,6 +137,7 @@ export function CardWithForm() {
             type="submit"
             className="rounded-[10px] font-semibold text-md "
           >
+
             Search
           </Button>
         </CardFooter>
