@@ -43,7 +43,7 @@ function Details() {
               Car
             </div>
           </div>
-          <div className="type  px-4 py-1">
+          <div className="type  px-4 py-1"> 
             <div className="tbuddies text-center font-medium text-[#C2C0C4]">
               Type
             </div>
