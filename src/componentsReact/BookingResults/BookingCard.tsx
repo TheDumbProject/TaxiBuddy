@@ -3,7 +3,7 @@ import React from "react";
 
 function BookingCard() {
   return (
-    <div className="bg-[#1e1e1e] hover:bg-[#000814] border-[1.3px] border-primary rounded-[.8rem] grid grid-cols-7 py-3 my-4">
+    <div className="bg-[#1e1e1e] hover:bg-[#000814] border-[1.3px] border-primary rounded-[.8rem]  grid grid-cols-7 py-3 my-4 ">
       <div className="col-span-2 flex flex-col items-center">
         <div className="time text-2xl text-white ">12:00</div>
         <div className="time text-l text-white ">Aug 28</div>
