@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { IoIosArrowDown } from "react-icons/io";
 import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   Card,
   CardContent,
@@ -35,23 +36,37 @@ export function CardWithForm() {
   const [redirect, setRedirect] = useState(true);
   let navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({
-      placeTo: placeTo,
-      placeFrom: placeFrom,
-      preferedDate: preferedDate,
-    });
-
-    if (redirect) {
-      navigate("/results", {
-        replace: true,
-        state: {
-          searchTo: placeTo,
-          searchFrom: placeFrom,
-          preferedDate: preferedDate,
-        },
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      if (!placeTo || !placeFrom || !preferedDate) {
+        throw new Error("Empty arguments!!!");
+      }
+      const response = await axios.post("http://localhost:2707/search", {
+        userId: "12",
+        placeFrom: placeFrom,
+        placeTo: placeTo,
+        date: preferedDate,
       });
+      console.log(response);
+      console.log({
+        placeTo: placeTo,
+        placeFrom: placeFrom,
+        preferedDate: preferedDate,
+      });
+
+      // if (redirect) {
+      //   navigate("/results", {
+      //     replace: true,
+      //     state: {
+      //       searchTo: placeTo,
+      //       searchFrom: placeFrom,
+      //       preferedDate: preferedDate,
+      //     },
+      //   });
+      // }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -67,7 +82,7 @@ export function CardWithForm() {
         </CardTitle>
         <CardDescription>Enter Details Below</CardDescription>
       </CardHeader>
-      <form>
+      <form onSubmit={handleSubmit}>
         <CardContent>
           <div className="w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5 mx-5 items-center">
@@ -100,13 +115,16 @@ export function CardWithForm() {
                 <IoIosArrowDown className="text-yellow-400 text-3xl" />
               </div>
               <div className="py-1 flex  justify-between gap-2 items-center w-full">
-                <Select>
+                <Select
+                  onValueChange={(value) => {
+                    setPlaceTo(value);
+                  }}
+                >
                   <SelectTrigger className="rounded-[10px]" id="to">
                     <SelectValue
                       className="font-semibold"
                       placeholder="Select a location"
                     />
-
                   </SelectTrigger>
                   <SelectContent className="rounded-[10px]" position="popper">
                     {locations
@@ -137,7 +155,6 @@ export function CardWithForm() {
             type="submit"
             className="rounded-[10px] font-semibold text-md "
           >
-
             Search
           </Button>
         </CardFooter>
