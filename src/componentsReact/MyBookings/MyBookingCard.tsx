@@ -39,7 +39,7 @@ function MyBookingCard() {
               Details
             </Button>
           </DialogTrigger>
-          <DialogContent className="p-0 bg-[#1e1e1e] min-w-[40%] ">
+          <DialogContent className="p-0 bg-[#1e1e1e] min-w-[30%] rounded-xl">
             <Details />
           </DialogContent>
         </Dialog>
