@@ -1,18 +1,47 @@
 import { Button } from "@/components/ui/button";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import BookingCard from "./BookingCard";
 import { useLocation } from "react-router-dom";
 import { add, format } from "date-fns";
+import axios from "axios";
 
 function BookingResults() {
   const location = useLocation();
   const searchData = location.state;
+  const date = searchData.preferedDate;
+  const formatDate = format(date, "y-MM-dd");
 
-  console.log(searchData);
+  const [result, setResult] = useState([]);
 
-  useEffect(() => {}, searchData);
+  const fetchData = async () => {
+    try {
+      console.log("called");
+      await axios
+        .post("http://localhost:2707/search", {
+          userId: "2",
+          placeTo: searchData.searchTo,
+          placeFrom: searchData.searchFrom,
+          date: formatDate,
+        })
+        .then((response) => {
+          setResult(response.data);
+          console.log(response.data);
+        });
+      // console.log(response);
+      // console.log(response.data);
+      // console.log(typeof response.data);
+      // setResult(response.data);
+      // console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="container w-3/4 h-[600px] rounded-lg my-10 border-[1.5px] border-primary bg-card ">
@@ -45,13 +74,13 @@ function BookingResults() {
         <div className="blank w-[20px] bg-transparent h-[2px]"></div>
       </div>
       <div className="resultContainer py-2 px-[4rem] overflow-auto  h-[400px] ml-[-10px] ">
-        <BookingCard />
-        <BookingCard />
-        <BookingCard />
-        <BookingCard />
-        <BookingCard />
-        <BookingCard />
-        <BookingCard />
+        {result.length > 0 ? (
+          result.map((booking, index) => (
+            <BookingCard key={index} booking={booking} />
+          ))
+        ) : (
+          <p>Loading</p>
+        )}
       </div>
       <div className="flex">
         <div className="line h-[1.8px] bg-[#8A8A8A] w-[90%] rounded-full m-auto "></div>

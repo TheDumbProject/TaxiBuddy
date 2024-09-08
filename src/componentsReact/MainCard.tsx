@@ -25,16 +25,17 @@ import { useForm } from "react-hook-form";
 export function CardWithForm() {
   const locations = [
     "IIITK",
-    "Kottayam Railway Station",
-    "Ernankulam Station",
+    "Kottayam",
+    "Ernakulam Junction",
     "Cochin Internation Airport",
+    "Pala",
   ];
   const [selectedOption, setSelectedOption] = useState("");
   const [placeTo, setPlaceTo] = useState("");
   const [placeFrom, setPlaceFrom] = useState("");
   const [preferedDate, setPreferedDate] = useState(null);
   const [redirect, setRedirect] = useState(true);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     try {
@@ -42,33 +43,34 @@ export function CardWithForm() {
       if (!placeTo || !placeFrom || !preferedDate) {
         throw new Error("Empty arguments!!!");
       }
-      const response = await axios.post("http://localhost:2707/search", {
-        userId: "12",
-        placeFrom: placeFrom,
-        placeTo: placeTo,
-        date: preferedDate,
-      });
-      console.log(response);
-      console.log({
-        placeTo: placeTo,
-        placeFrom: placeFrom,
-        preferedDate: preferedDate,
-      });
+      // const response = await axios.post("http://localhost:2707/search", {
+      //   userId: "12",
+      //   placeFrom: placeFrom,
+      //   placeTo: placeTo,
+      //   date: preferedDate,
+      // });
+      // console.log(response);
+      // console.log({
+      //   placeTo: placeTo,
+      //   placeFrom: placeFrom,
+      //   preferedDate: preferedDate,
+      // });
 
       // if (redirect) {
-      //   navigate("/results", {
-      //     replace: true,
-      //     state: {
-      //       searchTo: placeTo,
-      //       searchFrom: placeFrom,
-      //       preferedDate: preferedDate,
-      //     },
-      //   });
-      // }
+      navigate("/results", {
+        replace: true,
+        state: {
+          searchTo: placeTo,
+          searchFrom: placeFrom,
+          preferedDate: preferedDate,
+        },
+      });
+      //     }
     } catch (error) {
       console.error(error);
     }
   };
+  // };
 
   useEffect(() => {
     console.log();

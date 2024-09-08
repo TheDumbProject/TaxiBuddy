@@ -18,8 +18,15 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        "custom-gradient": "linear-gradient(0deg, #FFC300 31.5%, #FFA800 100%)",
+        "custom-gradient-nav":
+          "linear-gradient(90deg, #FFA800 57.5%,#FFC300 100%);",
+      },
+
       colors: {
         blackback: "#801111",
+        cheese: "#FFA300",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -3,19 +3,24 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Details from "./Details";
 
-function MyBookingCard() {
+function MyBookingCard({ chatBookingId, setChatBookingId, number }) {
+  const startChat = () => {
+    console.log("clicked");
+    localStorage.setItem("bookingId", "2");
+    setChatBookingId(number);
+  };
   return (
-    <div className="bg-black hover:bg-[#131313]  border-[1.3px] border-primary rounded-[.8rem] flex justify-evenly items-center py-4 my-4 ">
+    <div className="bg-black hover:bg-[#131313]  border-[1.3px] border-primary rounded-[.8rem] flex justify-evenly items-center py-5 my-4 ">
       <div className="flex flex-col items-center">
         <div className="time text-2xl text-white ">12:00</div>
-        <div className="time text-l text-white ">Aug 28</div>
+        <div className="time text-lg text-white ">Aug 28</div>
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="initiator text-center font-medium text-[#C2C0C4]">
           Initaitor
         </div>
         <div className="initiator text-center text-primary font-bold pt-1">
-          HARSH
+          Harsh
         </div>
       </div>
       <div className="flex flex-col items-center justify-center ">
@@ -35,16 +40,19 @@ function MyBookingCard() {
       <div className=" flex justify-around items-center gap-8">
         <Dialog>
           <DialogTrigger>
-            <Button className="  bg-yellow-400  text-black font-medium rounded-2xl text-md px-8 border-[1.5px] hover:border-primary hover:bg-black hover:text-primary">
+            <Button className="  bg-primary  text-black font-medium rounded-2xl text-md px-8 border-[1.5px] hover:border-primary hover:bg-black hover:text-primary">
               Details
             </Button>
           </DialogTrigger>
-          <DialogContent className="p-0 bg-[#1e1e1e] min-w-[30%] rounded-xl">
+          <DialogContent className="p-0 bg-[#1e1e1e] min-w-[30%] rounded-xl ">
             <Details />
           </DialogContent>
         </Dialog>
 
-        <Button className=" bg-yellow-400  text-black font-medium rounded-2xl text-md px-10 border-[1.5px] hover:border-primary hover:bg-black hover:text-primary  ">
+        <Button
+          onClick={startChat}
+          className=" bg-primary  text-black font-medium rounded-2xl text-md px-10 border-[1.5px] hover:border-primary hover:bg-black hover:text-primary  "
+        >
           Chat
         </Button>
       </div>

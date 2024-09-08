@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -12,13 +12,57 @@ import AuthPopup from "./components/AuthPopup";
 import { FaTaxi } from "react-icons/fa";
 export default function Navbar() {
   return (
-    <div className="  flex flex-row bg-yellow-400 text-black p-1 px-4 justify-between">
+    <div className="  flex flex-row bg-custom-gradient-nav text-black p-1 px-4 py-2 justify-between border-b-[5px] border-black">
       <div className=" text-2xl  flex justify-center items-center  font-semibold">
         <Link to="/">
           <div className="flex flex-row justify-center items-center">
             <FaTaxi className="mr-2" /> <span> Taxi Buddy</span>
           </div>
         </Link>
+      </div>
+      <div className="flex flex-row ">
+        <ul className="flex text-xl text-center gap-10 items-center justify-center ">
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `${isActive ? " font-semibold border-b-[3px] py-1" : ""}`
+              }
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/mybookings"
+              className={({ isActive }) =>
+                `${isActive ? " font-semibold border-b-[3px] py-1" : ""}`
+              }
+            >
+              <span>My Bookings</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contactus"
+              className={({ isActive }) =>
+                `${isActive ? " font-semibold border-b-[3px] py-1" : ""}`
+              }
+            >
+              Contact Us
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `${isActive ? " font-semibold border-b-[3px] py-1" : ""}`
+              }
+            >
+              About
+            </NavLink>
+          </li>
+        </ul>
       </div>
       <div className="flex flex-row">
         {/*Maybe use this later on */}
