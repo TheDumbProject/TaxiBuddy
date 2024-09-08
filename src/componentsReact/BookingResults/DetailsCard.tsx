@@ -2,29 +2,35 @@ import React from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoCall } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
-
-function Details() {
+import { add, format } from "date-fns";
+function DetailsCard({ booking }) {
+  const date = format(booking.datebooked, "LLL dd");
   const showmembers = true;
   return (
     <div className="h-full  mx-2 my-2 flex flex-col items-center  ">
-      <div className="datetime text-2xl my-3">Aug 28 - 12:00</div>
+      <div className="datetime text-2xl my-3">{date} - 12:00</div>
       <div className=" w-full px-5">
         <div className="location flex justify-center items-center  text-center my-5 text-lg">
           <div className="from w-[40%] bg-[#444444] py-2 px-2 rounded-lg">
-            Ernakulam
+            {booking.sourceplace}
           </div>
           <div className="arrowicon w-[20%] flex justify-center">
             <IoIosArrowForward className="text-white text-3xl" />
           </div>
           <div className="to w-[40%] bg-[#444444] py-2 px-2 rounded-lg">
-            Kottayam
+            {booking.destination}
           </div>
         </div>
         {showmembers && (
           <div className="initiator flex justify-center items-center  text-center my-10 text-lg font-semibold">
             <div className="from w-[40%] bg-[#444444] py-2 px-2 rounded-lg flex items-center justify-center gap-3  ">
               <FaUserAlt className="text-primary opacity-80" />
-              <div className="">ABHINAV</div>
+              <div className="">
+                {booking.initatorname.slice(
+                  1,
+                  booking.initatorname.indexOf(",")
+                )}
+              </div>
             </div>
             <div className="h-[2px] w-[20%] flex justify-center bg-[#767676]"></div>
             <div className="to w-[40%] bg-[#444444] py-2 px-4 rounded-lg flex items-center text-xl justify-evenly">
@@ -39,7 +45,7 @@ function Details() {
               Vehicle <span className="hidden md:inline">Type</span>
             </div>
             <div className="v text-center text-primary font-semibold pt-1">
-              Car
+              {booking.vehicle}
             </div>
           </div>
           <div className="type  px-4 py-1">
@@ -47,7 +53,7 @@ function Details() {
               Luggage
             </div>
             <div className="l text-center text-primary font-semibold pt-1">
-              Any
+              {booking.luggage}
             </div>
           </div>
           <div className="type  px-4 py-1">
@@ -55,7 +61,7 @@ function Details() {
               <span className="hidden md:inline">Total</span> Buddies
             </div>
             <div className="totalnumber text-center text-primary font-semibold pt-1">
-              2/5
+              {booking.currentmembers}/{booking.maxmembers}
             </div>
           </div>
         </div>
@@ -68,9 +74,11 @@ function Details() {
             <div className="bg-[#444444] px-2 py-1 rounded-2xl text-primary ">
               Abhinav
             </div>
-            <div className="bg-[#444444] px-2 py-1 rounded-2xl ">Samradhi</div>
-            <div className="bg-[#444444] px-2 py-1 rounded-2xl ">Ansh</div>
-            <div className="bg-[#444444] px-2 py-1 rounded-2xl ">Harsh</div>
+            {booking.buddies.map((buddy, index) => (
+              <div className="bg-[#444444] px-2 py-1 rounded-2xl ">
+                {buddy.name.slice(1, buddy.name.indexOf(","))}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -78,4 +86,4 @@ function Details() {
   );
 }
 
-export default Details;
+export default DetailsCard;
