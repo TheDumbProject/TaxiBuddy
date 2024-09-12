@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Details from "./Details";
 
-function MyBookingCard({ chatBookingId, setChatBookingId, number }) {
+function MyBookingCard({ booking, setChatBookingId, number }) {
   const startChat = () => {
     console.log("clicked");
     localStorage.setItem("bookingId", "2");
     setChatBookingId(number);
   };
   return (
-    <div className="bg-black hover:bg-[#131313]  border-[1.3px] border-primary rounded-[.8rem] flex justify-evenly items-center py-5 my-4 ">
+    <div className="bg-black hover:bg-[#131313]  border-[1.3px] border-primary rounded-[.8rem] flex justify-around items-center py-5 my-4  ">
       <div className="flex flex-col items-center">
         <div className="time text-2xl text-white ">12:00</div>
         <div className="time text-lg text-white ">Aug 28</div>
@@ -20,7 +20,7 @@ function MyBookingCard({ chatBookingId, setChatBookingId, number }) {
           Initaitor
         </div>
         <div className="initiator text-center text-primary font-bold pt-1">
-          Harsh
+          {booking?.initiatorname}
         </div>
       </div>
       <div className="flex flex-col items-center justify-center ">
@@ -28,13 +28,13 @@ function MyBookingCard({ chatBookingId, setChatBookingId, number }) {
           Buddies
         </div>
         <div className="initiator text-center text-primary font-semibold pt-1">
-          2/4
+          {booking?.currentmembers}/{booking?.maxmembers}
         </div>
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="type text-center font-medium text-[#C2C0C4]">Type</div>
         <div className="initiator text-center text-primary font-semibold pt-1">
-          Car
+          {booking?.vehicle}
         </div>
       </div>
       <div className=" flex justify-around items-center gap-8">
@@ -45,7 +45,7 @@ function MyBookingCard({ chatBookingId, setChatBookingId, number }) {
             </Button>
           </DialogTrigger>
           <DialogContent className="p-0 bg-[#1e1e1e] min-w-[30%] rounded-xl ">
-            <Details />
+            <Details booking={booking} />
           </DialogContent>
         </Dialog>
 
