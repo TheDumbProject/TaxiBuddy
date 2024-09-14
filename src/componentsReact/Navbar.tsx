@@ -12,7 +12,7 @@ import AuthPopup from "./components/AuthPopup";
 import { FaTaxi } from "react-icons/fa";
 export default function Navbar() {
   return (
-    <div className="  flex flex-row bg-custom-gradient-nav text-black p-1 px-4 py-2 justify-between border-b-[5px] border-black">
+    <div className=" flex flex-row bg-custom-gradient-nav text-black p-1 px-4 py-2 justify-between border-b-[5px] border-black">
       <div className=" text-2xl  flex justify-center items-center  font-semibold">
         <Link to="/">
           <div className="flex flex-row justify-center items-center">
@@ -26,7 +26,7 @@ export default function Navbar() {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `${isActive ? " font-semibold border-b-[3px] py-1" : ""}`
+                `${isActive ? "font-semibold border-b-[3px] py-1" : ""}`
               }
             >
               Home

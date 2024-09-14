@@ -3,6 +3,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { IoCall } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 import { add, format } from "date-fns";
+import { Button } from "@/components/ui/button";
 function DetailsCard({ booking }) {
   const date = format(booking.datebooked, "LLL dd");
   const showmembers = true;
@@ -21,25 +22,8 @@ function DetailsCard({ booking }) {
             {booking.destination}
           </div>
         </div>
-        {showmembers && (
-          <div className="initiator flex justify-center items-center  text-center my-10 text-lg font-semibold">
-            <div className="from w-[40%] bg-[#444444] py-2 px-2 rounded-lg flex items-center justify-center gap-3  ">
-              <FaUserAlt className="text-primary opacity-80" />
-              <div className="">
-                {booking.initatorname.slice(
-                  1,
-                  booking.initatorname.indexOf(",")
-                )}
-              </div>
-            </div>
-            <div className="h-[2px] w-[20%] flex justify-center bg-[#767676]"></div>
-            <div className="to w-[40%] bg-[#444444] py-2 px-4 rounded-lg flex items-center text-xl justify-evenly">
-              <IoCall className="text-primary opacity-80" />
-              <div className="contact">123456789</div>
-            </div>
-          </div>
-        )}
-        <div className="moredetail bg-[#C2C0C4] bg-opacity-20 grid grid-cols-3 place-content-center rounded-lg px-6  my-8">
+
+        <div className="moredetail bg-[#C2C0C4] bg-opacity-20 grid grid-cols-3 place-content-center rounded-lg px-6  my-10 mt-14">
           <div className="type  px-4 py-1">
             <div className="vehicle text-center font-medium text-[#C2C0C4]">
               Vehicle <span className="hidden md:inline">Type</span>
@@ -80,6 +64,12 @@ function DetailsCard({ booking }) {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="flex items-center justify-center mb-4 ">
+          <Button className=" bg-yellow-400  text-black font-medium rounded-3xl text-lg py-5 px-6 border-2 hover:border-primary hover:bg-black hover:text-primary">
+            Join
+          </Button>
         </div>
       </div>
     </div>

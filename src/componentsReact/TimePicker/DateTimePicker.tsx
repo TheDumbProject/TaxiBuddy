@@ -44,12 +44,12 @@ export function DateTimePicker({ setPreferedDate, preferedDate }) {
           variant={"outline"}
           className={cn(
             "w-full justify-center text-left font-normal bg-card rounded-[10px]",
-            !date && "text-muted-foreground",
+            !date && "text-muted-foreground"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4  hidden md:block " />
           {date ? (
-            format(date, "PP - HH:mm")
+            format(date, "MMM do - HH:mm")
           ) : (
             <span className="">Select Time</span>
           )}

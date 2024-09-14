@@ -8,7 +8,7 @@ import { add, format } from "date-fns";
 function BookingCard({ booking }) {
   const date = format(booking.datebooked, "LLL dd");
   return (
-    <div className="bg-[#1e1e1e] hover:bg-[#000814] border-[1.3px] border-primary rounded-[.8rem]  grid grid-cols-7 py-3 my-4 ">
+    <div className="bg-[#1e1e1e] hover:bg-[#000814] border-[1.3px] border-primary rounded-[.8rem]  grid grid-cols-7 py-5 my-4 ">
       <div className="col-span-2 flex flex-col items-center">
         <div className="time text-2xl text-white ">12:00</div>
         <div className="time text-l text-white ">{date}</div>
@@ -38,8 +38,8 @@ function BookingCard({ booking }) {
       <div className="col-span-2 flex justify-center items-center">
         <Dialog>
           <DialogTrigger>
-            <Button className="  bg-yellow-400  text-black font-medium rounded-2xl text-md px-8 border-[1.5px] hover:border-primary hover:bg-black hover:text-primary">
-              Join Buddies
+            <Button className="  bg-yellow-400  text-black font-medium  text-md px-8 border-[1.5px] hover:border-primary hover:bg-black hover:text-primary py-5 rounded-3xl ">
+              View Booking
             </Button>
           </DialogTrigger>
           <DialogContent className="p-0 bg-[#1e1e1e] min-w-[30%] rounded-xl ">
