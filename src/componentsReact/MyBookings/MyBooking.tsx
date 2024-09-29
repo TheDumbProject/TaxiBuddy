@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { useToast } from "@/hooks/use-toast";
 import MyBookingCard from "./MyBookingCard";
 import ChatBox from "./ChatBox";
 import { io } from "socket.io-client";
@@ -8,19 +8,30 @@ import InitiatedCard from "./InitiatedCard";
 import RequestBox from "./RequestBox";
 import BuddiesBox from "./BuddiesBox";
 import axios from "axios";
+import { add, format } from "date-fns";
 const socket = io("http://localhost:2707");
 
 function MyBooking() {
   const [initiatedBookings, setInitiatedBookings] = useState("current");
+  const { toast } = useToast();
 
+  const showToast = () => {
+    toast({
+      title: "Success",
+      description: "Your booking has been cancelled",
+    });
+  };
   const toggleBookings = () => {
     if (initiatedBookings === "current") setInitiatedBookings("initiated");
     else setInitiatedBookings("current");
   };
   const userId = 1;
+
   const [useChat, setUseChat] = useState(false);
-  const [showInBox, setShowInBox] = useState("chat");
+  const [showInBox, setShowInBox] = useState(["chat", -1]);
+
   const [result, setResult] = useState([]);
+  const [initiatedResult, setInitiatedResult] = useState([]);
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const fetchData = async (userId) => {
@@ -32,6 +43,15 @@ function MyBooking() {
           })
           .then((response) => {
             setResult(response.data);
+            console.log(response.data);
+          });
+
+        await axios
+          .post("http://localhost:2707/getBookingsForInitiator", {
+            userId: 12,
+          })
+          .then((response) => {
+            setInitiatedResult(response.data);
             console.log(response.data);
           });
       } catch (error) {
@@ -47,7 +67,7 @@ function MyBooking() {
 
   const startChat = () => {
     console.log("start chat");
-    setShowInBox("chat");
+    setShowInBox(["chat", -1]);
     socket.emit("joinbooking", chatBookingId);
   };
   const [chatBookingId, setChatBookingId] = useState(0);
@@ -82,6 +102,8 @@ function MyBooking() {
                 Initated bookings
               </button>
             </div>
+
+            {/* Current Bookings */}
             {initiatedBookings === "current" && (
               <div className="relative h-[80%] w-[95%] bg-transparent flex overflow-auto justify-center px-3 ">
                 <div className="w-[98%] h-fit min-h-full bg-[#444444] inline-block rounded-lg px-6 relative z-10 bg-opacity-40">
@@ -115,26 +137,56 @@ function MyBooking() {
                   >
                     Start
                   </button>
+                  <button
+                    className="py-2 px-3 text-black bg-primary hover:bg-black hover:text-primary"
+                    onClick={showToast}
+                  >
+                    Show toast
+                  </button>
                 </div>
               </div>
             )}
+
+            {/* Initiated Bookings */}
+
             {initiatedBookings === "initiated" && (
               <div className="h-[80%] w-[95%] bg-transparent flex overflow-auto justify-center px-3 ">
                 <div className="w-[98%] h-fit min-h-full bg-[#444444] inline-block rounded-lg px-6 relative z-10 bg-opacity-40">
-                  <InitiatedCard
-                    setShowInBox={setShowInBox}
-                    showInBox={showInBox}
-                  />
+                  {initiatedResult.length > 0 ? (
+                    initiatedResult.map((booking, index) => (
+                      <>
+                        <InitiatedCard
+                          key={index}
+                          booking={booking}
+                          setShowInBox={setShowInBox}
+                          showInBox={showInBox}
+                        />
+                      </>
+                    ))
+                  ) : (
+                    <div className="h-full flex items-center justify-center">
+                      <div className="loadingspinner ">
+                        <div id="square1"></div>
+                        <div id="square2"></div>
+                        <div id="square3"></div>
+                        <div id="square4"></div>
+                        <div id="square5"></div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
           </div>
+
           <div className="w-[28%] h-[450px] rounded-lg border-[1.5px] border-[#C2C0C4] bg-card px-6 py-6  flex flex-col">
-            {showInBox === "chat" && (
+            {showInBox[0] === "chat" && (
               <ChatBox bookingId={chatBookingId} userId={"1"} socket={socket} />
             )}
-            {showInBox === "requests" && <RequestBox />}
-            {showInBox === "buddies" && <BuddiesBox />}
+            {showInBox[0] === "requests" && (
+              <RequestBox showInBox={showInBox} />
+            )}
+            {showInBox[0] === "buddies" && <BuddiesBox showInBox={showInBox} />}
           </div>
         </div>
       )}

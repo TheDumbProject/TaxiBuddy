@@ -31,6 +31,7 @@ import { DateTimePicker } from "../TimePicker/DateTimePicker";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { time } from "console";
+import { useToast } from "@/hooks/use-toast";
 
 function CreateBooking() {
   const locations = [
@@ -51,7 +52,7 @@ function CreateBooking() {
   const [vehicleType, setVehicleType] = useState("");
   const [maxMembers, setMaxMembers] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
-
+  const { toast } = useToast();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -80,6 +81,7 @@ function CreateBooking() {
       const formatDate = format(date, "y-MM-dd");
       const formatTime = format(date, "HH:mm");
 
+      // call to backend
       await axios
         .post("http://localhost:2707/createbooking", {
           userId: "12",
@@ -93,24 +95,30 @@ function CreateBooking() {
         })
         .then((response) => {
           console.log(response.data);
+          toast({ title: "Success", description: "Booking Created" });
+        })
+        .catch((error) => {
+          console.log("Error in creating booking", error);
+          toast({ title: "Error", description: "Error Creating Booking" });
         });
     } catch (error) {
       console.log(error);
+      toast({ title: "Error", description: "Invalid Input Fields" });
     }
   };
   return (
     <>
-      <Card className=" border-[2px] border-[#C2C0C4] p-6 ">
-        <div className="bg-[#444444] bg-opacity-40 rounded-2xl">
-          <CardHeader className="text-center">
-            <CardTitle className="text-yellow-400 text-xl">
+      <div className="h-full border-[2px] border-[#C2C0C4] p-6 rounded-lg">
+        <div className="bg-[#444444] bg-opacity-40 rounded-2xl py-6 px-2">
+          <div className="heading text-center ">
+            <div className="text-yellow-400 text-2xl">
               New Booking
               <div className="h-[1px] w-full mt-4 bg-[#D9D9D9]"></div>
-            </CardTitle>
-          </CardHeader>
+            </div>
+          </div>
           <form onSubmit={handleSubmit}>
-            <CardContent>
-              <div className="w-full flex justify-between items-center  py-3">
+            <div className="mx-2">
+              <div className="w-full flex justify-between items-center py-5 my-4 ">
                 <div className="flex ">
                   <Select
                     onValueChange={(value) => {
@@ -119,7 +127,7 @@ function CreateBooking() {
                     }}
                   >
                     <SelectTrigger
-                      className="rounded-[10px] w-[160px] bg-[#1e1e1e] gap-2"
+                      className="rounded-[10px] w-[190px] h-[40px] bg-[#1e1e1e] gap-2"
                       id="from"
                     >
                       <IoLocationSharp className="text-white text-lg" />
@@ -152,7 +160,7 @@ function CreateBooking() {
                     }}
                   >
                     <SelectTrigger
-                      className="rounded-[10px] w-[160px] bg-[#1e1e1e]  gap-2"
+                      className="rrounded-[10px] w-[190px] h-[40px] bg-[#1e1e1e] gap-2"
                       id="to"
                     >
                       <IoLocationSharp className="text-white text-lg" />
@@ -178,14 +186,14 @@ function CreateBooking() {
                 </div>
               </div>
               {/* Luggage type and maxMembers */}
-              <div className="w-full flex justify-between items-center gap-4 my-4 py-3">
+              <div className="w-full flex justify-between items-center  gap-4 my-4 py-5 ">
                 <div className="">
                   <Select
                     onValueChange={(value) => {
                       setLuggageType(value);
                     }}
                   >
-                    <SelectTrigger className="rounded-[10px] w-[160px] bg-[#1e1e1e] ">
+                    <SelectTrigger className="rounded-[10px] w-[190px] h-[40px] bg-[#1e1e1e] ">
                       <BsSuitcase2Fill className="text-white text-lg" />
                       <SelectValue
                         className="font-semibold text-center  "
@@ -212,7 +220,7 @@ function CreateBooking() {
                       setMaxMembers(value);
                     }}
                   >
-                    <SelectTrigger className="rounded-[10px] w-[160px] bg-[#1e1e1e] ">
+                    <SelectTrigger className="rounded-[10px] w-[190px] h-[40px] bg-[#1e1e1e] ">
                       <IoIosPeople className="text-white text-2 xl" />
                       <SelectValue
                         className="font-semibold text-center  "
@@ -232,8 +240,8 @@ function CreateBooking() {
                 </div>
               </div>
               {/* Time and vehicle */}
-              <div className="w-full flex justify-between items-center gap-4 my-3 ">
-                <div className="timepicker flex items-center py-4 gap-2 w-[160px]">
+              <div className="w-full flex justify-between items-center gap-4  my-4 py-5">
+                <div className="timepicker flex items-center  gap-2 w-[190px] ">
                   <DateTimePicker
                     setPreferedDate={setPreferedDate}
                     preferedDate={preferedDate}
@@ -246,7 +254,7 @@ function CreateBooking() {
                       setVehicleType(value);
                     }}
                   >
-                    <SelectTrigger className="rounded-[10px] w-[160px] bg-[#1e1e1e] ">
+                    <SelectTrigger className="rounded-[10px] w-[190px] h-[40px] bg-[#1e1e1e] ">
                       <FaTaxi className="text-white text-lg" />
                       <SelectValue
                         className="font-semibold text-center  "
@@ -265,12 +273,12 @@ function CreateBooking() {
                   </Select>
                 </div>
               </div>
-            </CardContent>
-            <CardFooter className="flex justify-evenly">
+            </div>
+            <div className="flex justify-evenly text-md ">
               <DialogClose>
                 <Button
                   type="submit"
-                  className="rounded-2xl px-6 py-4 border-[1.5px] border-[#C2C0C4] bg-[#C2C0C4] hover:bg-black hover:text-white text-md "
+                  className="rounded-2xl px-6 py-4 border-[1.5px] border-[#C2C0C4] bg-[#C2C0C4] hover:bg-black hover:text-white text-md font-medium"
                 >
                   Cancel
                 </Button>
@@ -278,15 +286,15 @@ function CreateBooking() {
 
               <Button
                 type="submit"
-                className="rounded-2xl px-5 py-3 border border-primary hover:bg-black hover:text-primary text-md "
+                className="rounded-2xl px-5 py-3 border border-primary hover:bg-black hover:text-primary text-md font-medium"
                 disabled={isDisabled}
               >
                 Create
               </Button>
-            </CardFooter>
+            </div>
           </form>
         </div>
-      </Card>
+      </div>
     </>
   );
 }

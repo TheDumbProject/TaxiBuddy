@@ -10,10 +10,12 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  "https://ijmuglxftyucuzsslkni.supabase.co",
-  import.meta.env.VITE_SUPABASE_KEY,
-);
+const supabaseUrl = "https://vwxhwqhmbjkgqyhrhych.supabase.co";
+
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 const provider = "google";
 
 async function signIn() {
@@ -21,6 +23,11 @@ async function signIn() {
     provider: provider,
   });
 }
+// async  function  signOut() {
+//   await  supabase.auth.signOut();
+//   setUser(null);
+// }
+
 const SignIn = () => {
   return (
     <div className="w-full flex justify-center px-6">
@@ -69,7 +76,7 @@ export default function AuthPopup() {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-              <Button className="mt-6 mx-auto bg-yellow-400  text-black font-semibold rounded-[6px] text-md">
+              <Button className="mt-6 mx-auto bg-yellow-400  text-black font-semibold rounded-lg text-md">
                 Register
               </Button>
             </CardContent>

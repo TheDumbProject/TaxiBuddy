@@ -72,7 +72,7 @@ function BookingResults() {
                   Create Booking
                 </Button>
               </DialogTrigger>
-              <DialogContent className="p-0 bg-[#1e1e1e] w-[32%] rounded-2xl ">
+              <DialogContent className="p-0 bg-[#1e1e1e] min-w-[32%] rounded-2xl ">
                 <CreateBooking />
               </DialogContent>
             </Dialog>
@@ -99,15 +99,23 @@ function BookingResults() {
           ))
         ) : (
           /* From Uiverse.io by Nawsome */
-          <div className="h-full flex items-center justify-center">
-            <div className="loadingspinner ">
-              <div id="square1"></div>
-              <div id="square2"></div>
-              <div id="square3"></div>
-              <div id="square4"></div>
-              <div id="square5"></div>
+          // <div className="h-full flex items-center justify-center">
+          //   <div className="loadingspinner ">
+          //     <div id="square1"></div>
+          //     <div id="square2"></div>
+          //     <div id="square3"></div>
+          //     <div id="square4"></div>
+          //     <div id="square5"></div>
+          //   </div>
+          // </div>
+
+          <>
+            <div className="  h-[400px] flex item-center justify-center">
+              <div className="flex item-center justify-center py-[140px]">
+                <div className="loader"></div>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
       <div className="flex">
