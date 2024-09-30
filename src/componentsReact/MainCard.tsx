@@ -116,7 +116,9 @@ export function CardWithForm() {
               <div className="arrowicon">
                 <IoIosArrowDown className="text-yellow-400 text-3xl" />
               </div>
-              <div className="py-1 flex  justify-between gap-2 items-center w-full">
+
+              {/*Place To  */}
+              <div className="py-1 pb-3 flex  justify-between gap-2 items-center w-full">
                 <Select
                   onValueChange={(value) => {
                     setPlaceTo(value);
@@ -155,7 +157,7 @@ export function CardWithForm() {
         <CardFooter className="flex justify-center">
           <Button
             type="submit"
-            className="rounded-[10px] font-semibold text-md "
+            className=" bg-primary  text-black font-medium rounded-xl text-md  border-[1.5px]  hover:border-primary hover:bg-black hover:text-primary  "
           >
             Search
           </Button>

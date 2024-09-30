@@ -39,12 +39,12 @@ const TrafficLight = () => {
 };
 function Home() {
   return (
-    <div className="flex  h-screen justify-around ">
+    <div className="flex  h-[calc(100vh-3.6rem)] justify-around ">
       <div className="leftbox w-full bg-custom-gradient relative overflow-hidden ">
         <div className="trafficbox absolute left-[-175px] top-[-45px]">
           <TrafficLight />
         </div>
-        <div className="absolute trafficpole bg-black w-[30px] h-[600px] left-0 top-[250px]"></div>
+        <div className="absolute trafficpole bg-black w-[30px] h-full left-0 top-[250px]"></div>
 
         <div className="gradientLine absolute right-0  h-full bg-custom-gradient w-[9px] z-40"></div>
         <div className=" absolute bottom-10 right-[-200px] ">
@@ -52,9 +52,9 @@ function Home() {
         </div>
         <div className="road bg-black w-[300px] h-[75px] absolute bottom-0 right-0 rounded-tl-full"></div>
         <div className="strip bg-[#444444] w-[30px] h-[50px] absolute rounded-s-sm right-0 bottom-[10px]"></div>
-        <div className="textcontent absolute text-6xl  text-black bottom-[250px] left-[80px] p-4 ">
+        <div className="textcontent absolute text-6xl 2xl:text-7xl text-black bottom-[35%] left-[80px] p-4 ">
           <div className="my-6 font-semibold">Find Your</div>
-          <div className="text-7xl font-bold">Taxi Buddy</div>
+          <div className="text-7xl 2xl:text-8xl font-bold">Taxi Buddy</div>
         </div>
       </div>
       <div className="rightbox w-full flex justify-center items-center overflow-auto py-4">
