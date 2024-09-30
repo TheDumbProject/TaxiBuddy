@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-const RequestCard = ({ request }) => {
+const RequestCard = ({ request, refresh, setRefresh }) => {
   const [isDisabled, setDisabled] = useState(false);
   // {
   //   "updateType":"accept",
@@ -14,7 +14,7 @@ const RequestCard = ({ request }) => {
   const updateRequest = async (status) => {
     console.log(request);
     setDisabled(true);
-    console.log(status, request.userid, request?.bookingId);
+    console.log(status, request.userid, request.bookingid);
     await axios
       .post("http://localhost:2707/approveRequest", {
         updateType: status,
@@ -22,10 +22,20 @@ const RequestCard = ({ request }) => {
         bookingId: request.bookingid,
       })
       .then((response) => {
-        toast(response.data);
+        const message = response.data.Success;
+        toast({
+          title: "Success",
+          description: message,
+        });
+
+        setRefresh(!refresh);
       })
       .catch((error) => {
-        toast(error);
+        console.error(error.message);
+        toast({
+          title: "Error",
+          description: error.message,
+        });
       });
   };
 
@@ -69,6 +79,7 @@ const RequestCard = ({ request }) => {
 
 function RequestBox({ showInBox }) {
   const bookingid = showInBox[1];
+  const [refresh, setRefresh] = useState(false);
   const [Requests, setRequests] = useState([]);
   useEffect(() => {
     try {
@@ -85,14 +96,19 @@ function RequestBox({ showInBox }) {
     } catch (error) {
       console.error(error);
     }
-  }, [showInBox]);
+  }, [showInBox, refresh, setRefresh]);
   return (
     <div className=" h-full bg-[#444444] bg-opacity-40 rounded-xl ">
       <div className="body h-full flex flex-col gap-4 overflow-auto py-5 px-2 ">
         {Requests.length > 0 ? (
           Requests.map((request, index) => (
             <>
-              <RequestCard key={index} request={request} />
+              <RequestCard
+                key={index}
+                request={request}
+                refresh={refresh}
+                setRefresh={setRefresh}
+              />
             </>
           ))
         ) : (
