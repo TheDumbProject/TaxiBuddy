@@ -4,9 +4,49 @@ import { IoCall } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 import { add, format } from "date-fns";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
+
 function DetailsCard({ booking }) {
   const date = format(booking.datebooked, "LLL dd");
   const showmembers = true;
+  console.log(booking);
+
+  const { toast } = useToast();
+
+  const sendRequest = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios
+        .post(
+          "http://localhost:2707/createRequest",
+          {
+            bookingId: booking.bookingid,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
+        .then((response) => {
+          toast({
+            title: "Success",
+            description: "Request Sent Successfully",
+          });
+        })
+        .catch((error) => {
+          console.error(error.message);
+          toast({
+            title: "Error",
+            description: "Error creating request",
+          });
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="h-full  mx-2 my-2 flex flex-col items-center  ">
       <div className="datetime text-2xl my-3">{date} - 12:00</div>
@@ -67,9 +107,32 @@ function DetailsCard({ booking }) {
         </div>
 
         <div className="flex items-center justify-center mb-4 ">
-          <Button className=" bg-yellow-400  text-black font-medium rounded-3xl text-lg py-5 px-6 border-2 hover:border-primary hover:bg-black hover:text-primary">
-            Join
-          </Button>
+          {booking.status === "initiator" && (
+            <Button
+              className=" bg-yellow-400  text-black font-medium rounded-3xl text-lg py-5 px-6 border-2 border-primary bg-black text-primary"
+              onClick={sendRequest}
+              disabled={true}
+            >
+              Initiator
+            </Button>
+          )}
+          {booking.status == "pending" && (
+            <Button
+              className=" bg-yellow-400  text-black font-medium rounded-3xl text-lg py-5 px-6 border-2 hover:border-primary hover:bg-black hover:text-primary"
+              onClick={sendRequest}
+              disabled={true}
+            >
+              Request Pending
+            </Button>
+          )}
+          {booking.status == "null" && (
+            <Button
+              className=" bg-yellow-400  text-black font-medium rounded-3xl text-lg py-5 px-6 border-2 hover:border-primary hover:bg-black hover:text-primary"
+              onClick={sendRequest}
+            >
+              Join
+            </Button>
+          )}
         </div>
       </div>
     </div>

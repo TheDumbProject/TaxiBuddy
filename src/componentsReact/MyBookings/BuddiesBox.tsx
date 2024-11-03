@@ -41,9 +41,17 @@ function BuddiesBox({ showInBox }) {
     try {
       console.log("Fetching Buddies");
       axios
-        .post("http://localhost:2707/getBuddiesFromBooking", {
-          bookingId: bookingid,
-        })
+        .post(
+          "http://localhost:2707/getBuddiesFromBooking",
+          {
+            bookingId: bookingid,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        )
         .then((response) => {
           console.log(response.data);
           setBuddies(response.data);

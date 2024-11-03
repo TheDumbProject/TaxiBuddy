@@ -2,18 +2,23 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Details from "./Details";
+import { add, format } from "date-fns";
 
 function MyBookingCard({ booking, setChatBookingId, number }) {
+  const date = format(booking.datebooked, "LLL dd");
   const startChat = () => {
     console.log("clicked");
     localStorage.setItem("bookingId", "2");
     setChatBookingId(number);
   };
+  console.log(booking);
   return (
     <div className="bg-black hover:bg-[#131313]  border-[1.3px] border-primary rounded-[.8rem] flex justify-around items-center py-5 my-4  ">
       <div className="flex flex-col items-center">
-        <div className="time text-2xl text-white ">12:00</div>
-        <div className="time text-lg text-white ">Aug 28</div>
+        <div className="time text-2xl text-white ">
+          {booking?.timebooked.slice(0, 5)}
+        </div>
+        <div className="time text-lg text-white ">{date}</div>
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="initiator text-center font-medium text-[#C2C0C4]">

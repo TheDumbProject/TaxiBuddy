@@ -52,7 +52,7 @@ function Home() {
         </div>
         <div className="road bg-black w-[300px] h-[75px] absolute bottom-0 right-0 rounded-tl-full"></div>
         <div className="strip bg-[#444444] w-[30px] h-[50px] absolute rounded-s-sm right-0 bottom-[10px]"></div>
-        <div className="textcontent absolute text-6xl 2xl:text-7xl text-black bottom-[35%] left-[80px] p-4 ">
+        <div className="textcontent absolute text-6xl 2xl:text-7xl text-black bottom-[35%] left-[100px] p-4 ">
           <div className="my-6 font-semibold">Find Your</div>
           <div className="text-7xl 2xl:text-8xl font-bold">Taxi Buddy</div>
         </div>

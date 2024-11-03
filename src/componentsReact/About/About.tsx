@@ -13,7 +13,9 @@ function About() {
           <FaCode className="text-[#ffa800] text-4xl" />
         </div>
         <div className="centerBox ">
-          <div className="imagebox mx-auto h-[250px] w-[80%] bg-neutral-600"></div>
+          <div className="imagebox mx-auto h-[250px] w-[80%] bg-neutral-600">
+            
+          </div>
           <div className="name text-white text-2xl text-center mb-3 mt-5 font-bold tracking-wide ">
             Ansh Rastogi
           </div>

@@ -80,19 +80,27 @@ function CreateBooking() {
       const date = new Date(preferedDate);
       const formatDate = format(date, "y-MM-dd");
       const formatTime = format(date, "HH:mm");
-
+      const token = localStorage.getItem("token");
       // call to backend
       await axios
-        .post("http://localhost:2707/createbooking", {
-          userId: "12",
-          placeFrom: placeFrom,
-          placeTo: placeTo,
-          date: formatDate,
-          time: formatTime,
-          luggageType: luggageType,
-          vehicleType: vehicleType,
-          maxMembers: maxMembers,
-        })
+        .post(
+          "http://localhost:2707/createbooking",
+          {
+            userId: "12",
+            placeFrom: placeFrom,
+            placeTo: placeTo,
+            date: formatDate,
+            time: formatTime,
+            luggageType: luggageType,
+            vehicleType: vehicleType,
+            maxMembers: maxMembers,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
         .then((response) => {
           console.log(response.data);
           toast({ title: "Success", description: "Booking Created" });

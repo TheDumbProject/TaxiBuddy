@@ -35,21 +35,36 @@ function MyBooking() {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const fetchData = async (userId) => {
+      const token = localStorage.getItem("token");
       try {
         console.log("Fetching Data");
         await axios
-          .post("http://localhost:2707/getMyBookings", {
-            userId: userId,
-          })
+          .post(
+            "http://localhost:2707/getMyBookings",
+            {},
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          )
           .then((response) => {
             setResult(response.data);
             console.log(response.data);
           });
 
         await axios
-          .post("http://localhost:2707/getBookingsForInitiator", {
-            userId: 12,
-          })
+          .post(
+            "http://localhost:2707/getBookingsForInitiator",
+            {
+              userId: 12,
+            },
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          )
           .then((response) => {
             setInitiatedResult(response.data);
             console.log(response.data);
@@ -76,7 +91,7 @@ function MyBooking() {
       {/* border-[#C2C0C4] */}
 
       {initiatedBookings && (
-        <div className="flex  w-full absolute translate-y-8 justify-between items-center px-8 ">
+        <div className="flex  w-full h-[calc(100vh-3.6rem)] justify-between  items-center px-8 ">
           <div className="w-[70%] h-[600px] rounded-lg  border-[1.5px] border-[#C2C0C4]   flex flex-col justify-start items-center  ">
             <div className=" h-[10%] w-[90%]  flex items-center gap-3 my-1 ">
               <button
@@ -132,16 +147,10 @@ function MyBooking() {
                   )}
 
                   <button
-                    className="py-2 px-3 text-black bg-primary hover:bg-black hover:text-primary"
+                    className=" bg-yellow-400  text-black font-medium rounded-lg text-lg px-4 py-2 border-2 hover:border-primary hover:bg-black hover:text-primary"
                     onClick={startChat}
                   >
                     Start
-                  </button>
-                  <button
-                    className="py-2 px-3 text-black bg-primary hover:bg-black hover:text-primary"
-                    onClick={showToast}
-                  >
-                    Show toast
                   </button>
                 </div>
               </div>

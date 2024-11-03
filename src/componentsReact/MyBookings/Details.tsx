@@ -25,7 +25,7 @@ function Details({ booking }) {
         <div className="initiator flex justify-center items-center  text-center my-10 text-lg font-semibold">
           <div className="from w-[40%] bg-[#444444] py-2 px-2 rounded-lg flex items-center justify-center gap-3  ">
             <FaUserAlt className="text-primary opacity-80" />
-            <div className="">ABHINAV</div>
+            <div className="">{booking.initiatorname}</div>
           </div>
           <div className="h-[2px] w-[20%] flex justify-center bg-[#767676]"></div>
           <div className="to w-[40%] bg-[#444444] py-2 px-4 rounded-lg flex items-center text-xl justify-evenly">
