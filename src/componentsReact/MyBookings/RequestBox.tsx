@@ -16,11 +16,19 @@ const RequestCard = ({ request, refresh, setRefresh }) => {
     setDisabled(true);
     console.log(status, request.userid, request.bookingid);
     await axios
-      .post("http://localhost:2707/approveRequest", {
-        updateType: status,
-        userId: request.userid,
-        bookingId: request.bookingid,
-      })
+      .post(
+        "http://localhost:2707/approveRequest",
+        {
+          updateType: status,
+          bookingId: request.bookingid,
+          requesterId: request.userid,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
         const message = response.data.Success;
         toast({
@@ -85,10 +93,17 @@ function RequestBox({ showInBox }) {
     try {
       console.log("Fetching Data");
       axios
-        .post("http://localhost:2707/getRequestsForBooking", {
-          userId: 1,
-          bookingId: bookingid,
-        })
+        .post(
+          "http://localhost:2707/getRequestsForBooking",
+          {
+            bookingId: bookingid,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        )
         .then((response) => {
           console.log(response.data);
           setRequests(response.data);

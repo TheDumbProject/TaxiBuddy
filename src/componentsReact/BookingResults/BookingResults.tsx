@@ -19,15 +19,24 @@ function BookingResults() {
   const [result, setResult] = useState([]);
 
   const fetchData = async () => {
+    const token = localStorage.getItem("token");
     try {
       console.log("called");
       await axios
-        .post("http://localhost:2707/search", {
-          userId: "2",
-          placeTo: searchData.searchTo,
-          placeFrom: searchData.searchFrom,
-          date: formatDate,
-        })
+        .post(
+          "http://localhost:2707/search",
+          {
+            userId: "2",
+            placeTo: searchData.searchTo,
+            placeFrom: searchData.searchFrom,
+            date: formatDate,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
         .then((response) => {
           setResult(response.data);
           console.log(response.data);
@@ -68,7 +77,7 @@ function BookingResults() {
           <div className="">
             <Dialog>
               <DialogTrigger>
-                <Button className=" bg-yellow-400  text-black font-medium rounded-2xl text-md">
+                <Button className="  bg-primary  text-black font-medium rounded-2xl text-md px-8 border-[1.5px] hover:border-primary hover:bg-black hover:text-primary">
                   Create Booking
                 </Button>
               </DialogTrigger>
@@ -87,13 +96,6 @@ function BookingResults() {
         {result.length > 0 ? (
           result.map((booking, index) => (
             <>
-              <BookingCard key={index} booking={booking} />
-              <BookingCard key={index} booking={booking} />
-              <BookingCard key={index} booking={booking} />
-              <BookingCard key={index} booking={booking} />
-              <BookingCard key={index} booking={booking} />
-              <BookingCard key={index} booking={booking} />
-              <BookingCard key={index} booking={booking} />
               <BookingCard key={index} booking={booking} />
             </>
           ))

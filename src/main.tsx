@@ -14,6 +14,7 @@ import MyBuddy from "./componentsReact/MyBuddy/MyBuddy.tsx";
 import BookingResults from "./componentsReact/BookingResults/BookingResults.tsx";
 import Error404 from "./componentsReact/Error404/Error404.tsx";
 import MyBooking from "./componentsReact/MyBookings/MyBooking.tsx";
+import UserLogin from "./componentsReact/UserLogin.tsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     errorElement: <Error404 />,
     children: [
       {
-        path: "",
+        path: "home",
         element: <Home />,
       },
       {
@@ -44,7 +45,14 @@ const router = createBrowserRouter([
         path: "mybookings",
         element: <MyBooking />,
       },
+      {
+        path: "login",
+        element: <UserLogin setLoggedIn={undefined} />,
+      },
     ],
+  },
+  {
+    path: "/login",
   },
 ]);
 
