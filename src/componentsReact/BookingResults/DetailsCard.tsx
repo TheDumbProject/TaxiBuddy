@@ -49,7 +49,9 @@ function DetailsCard({ booking }) {
 
   return (
     <div className="h-full  mx-2 my-2 flex flex-col items-center  ">
-      <div className="datetime text-2xl my-3">{date} - 12:00</div>
+      <div className="datetime text-2xl my-3">
+        {date} - {booking?.timebooked.slice(0, 5)}
+      </div>
       <div className=" w-full px-5">
         <div className="location flex justify-center items-center  text-center my-5 text-lg">
           <div className="from w-[40%] bg-[#444444] py-2 px-2 rounded-lg">
