@@ -10,7 +10,9 @@ function BookingCard({ booking }) {
   return (
     <div className="bg-[#1e1e1e] hover:bg-[#000814] border-[1.3px] border-primary rounded-[.8rem]  grid grid-cols-7 py-5 my-4 ">
       <div className="col-span-2 flex flex-col items-center">
-        <div className="time text-2xl text-white ">12:00</div>
+        <div className="time text-2xl text-white ">
+          {booking?.timebooked.slice(0, 5)}
+        </div>
         <div className="time text-l text-white ">{date}</div>
       </div>
       <div className="flex flex-col items-center justify-center">
