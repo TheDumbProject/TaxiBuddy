@@ -8,12 +8,22 @@ import InitiatedCard from "./InitiatedCard";
 import RequestBox from "./RequestBox";
 import BuddiesBox from "./BuddiesBox";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import { add, format } from "date-fns";
-const socket = io("http://localhost:2707");
+import { useChatStore } from "@/store/useChatStore";
+import { connect } from "http2";
 
 function MyBooking() {
   const [initiatedBookings, setInitiatedBookings] = useState("current");
   const { toast } = useToast();
+  const [userId, setUserId] = useState(0);
+  const {
+    socket,
+    setSelectedBooking,
+    disconnectSocket,
+    connectSocket,
+    selectedChatBooking,
+  } = useChatStore();
 
   const showToast = () => {
     toast({
@@ -25,17 +35,20 @@ function MyBooking() {
     if (initiatedBookings === "current") setInitiatedBookings("initiated");
     else setInitiatedBookings("current");
   };
-  const userId = 1;
 
   const [useChat, setUseChat] = useState(false);
   const [showInBox, setShowInBox] = useState(["chat", -1]);
-
+  const [chatBookingId, setChatBookingId] = useState(0);
   const [result, setResult] = useState([]);
   const [initiatedResult, setInitiatedResult] = useState([]);
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const fetchData = async (userId) => {
       const token = localStorage.getItem("token");
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        setUserId(decodedToken?.userid);
+      }
       try {
         console.log("Fetching Data");
         await axios
@@ -56,9 +69,7 @@ function MyBooking() {
         await axios
           .post(
             "http://localhost:2707/getBookingsForInitiator",
-            {
-              userId: 12,
-            },
+            {},
             {
               headers: {
                 Authorization: token,
@@ -78,22 +89,33 @@ function MyBooking() {
 
   useEffect(() => {
     console.log("mounted mybooking");
-  }, [socket]);
+  }, []);
 
-  const startChat = () => {
+  // const startChat = () => {
+  //   console.log("start chat");
+  //   setShowInBox(["chat", -1]);
+  //   socket.emit("joinbooking", chatBookingId);
+  // };
+
+  useEffect(() => {
     console.log("start chat");
+    console.log("Running Mybooking");
+    // disconnectSocket();
+
     setShowInBox(["chat", -1]);
-    socket.emit("joinbooking", chatBookingId);
-  };
-  const [chatBookingId, setChatBookingId] = useState(0);
+    setSelectedBooking(chatBookingId);
+
+    setUseChat(true);
+  }, [chatBookingId, setChatBookingId, socket, setSelectedBooking]);
+
   return (
     <>
       {/* border-[#C2C0C4] */}
 
       {initiatedBookings && (
         <div className="flex  w-full h-[calc(100vh-3.6rem)] justify-between  items-center px-8 ">
-          <div className="w-[70%] h-[600px] rounded-lg  border-[1.5px] border-[#C2C0C4]   flex flex-col justify-start items-center  ">
-            <div className=" h-[10%] w-[90%]  flex items-center gap-3 my-1 ">
+          <div className="w-[35%] h-[600px] rounded-lg  border-[1.5px] border-[#C2C0C4]   flex flex-col justify-start items-center  ">
+            <div className=" h-[10%] w-[90%]  flex items-center justify-center gap-3 my-1 ">
               <button
                 onClick={toggleBookings}
                 disabled={initiatedBookings === "current"}
@@ -146,12 +168,12 @@ function MyBooking() {
                     </div>
                   )}
 
-                  <button
+                  {/* <button
                     className=" bg-yellow-400  text-black font-medium rounded-lg text-lg px-4 py-2 border-2 hover:border-primary hover:bg-black hover:text-primary"
                     onClick={startChat}
                   >
                     Start
-                  </button>
+                  </button> */}
                 </div>
               </div>
             )}
@@ -188,9 +210,13 @@ function MyBooking() {
             )}
           </div>
 
-          <div className="w-[28%] h-[450px] rounded-lg border-[1.5px] border-[#C2C0C4] bg-card px-6 py-6  flex flex-col">
+          <div className="w-[60%] h-[600px] rounded-lg border-[1.5px] border-[#C2C0C4] bg-card px-6 py-6  flex flex-col">
             {showInBox[0] === "chat" && (
-              <ChatBox bookingId={chatBookingId} userId={"1"} socket={socket} />
+              <ChatBox
+                bookingId={chatBookingId}
+                userId={userId}
+                socket={socket}
+              />
             )}
             {showInBox[0] === "requests" && (
               <RequestBox showInBox={showInBox} />

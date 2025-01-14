@@ -81,6 +81,7 @@ const LoginCard = ({ setLoggedIn }) => {
           localStorage.setItem("token", response.data.token);
           setLoggedIn(true);
           console.log(response.data);
+
           navigate("/home");
         })
         .catch((error) => {

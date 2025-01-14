@@ -1,6 +1,9 @@
 import { set } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { add, format } from "date-fns";
+import { IoSettingsSharp } from "react-icons/io5";
+import { FaHandshake } from "react-icons/fa";
+import { FaUserFriends } from "react-icons/fa";
 
 function InitiatedCard({ showInBox, setShowInBox, booking }) {
   const [getRequests, setGetRequests] = useState(true);
@@ -18,22 +21,30 @@ function InitiatedCard({ showInBox, setShowInBox, booking }) {
   }, [showInBox]);
 
   return (
-    <div className="bg-black hover:bg-[#131313]  border-[1.3px] border-primary rounded-[.8rem] grid grid-cols-3 py-5 my-4 ">
-      <div className="flex justify-center gap-3 items-center">
+    <div className="bg-black hover:bg-[#131313]  border-[1.3px] border-neutral-500 rounded-[.8rem] grid grid-cols-3 py-5 my-4 ">
+      {/* <div className="flex justify-center gap-3 items-center">
         <div className="time text-2xl text-white ">
           {booking.timebooked.slice(0, 5)}
         </div>
         <div className="text-2xl pb-1">-</div>
-        <div className="time text-xl text-white ">
+        <div className="time text-2xl text-white ">
+          {format(booking.datebooked, "MMM dd")}
+        </div>
+      </div> */}
+      <div className="flex flex-col items-center">
+        <div className="time text-2xl text-white ">
+          {booking?.timebooked.slice(0, 5)}
+        </div>
+        <div className="time text-lg text-white ">
           {format(booking.datebooked, "MMM dd")}
         </div>
       </div>
       <div className="flex justify-evenly items-center col-span-2">
         <button
           onClick={() => setShowInBox("settings", booking.bookingid)}
-          className=" bg-primary transition ease-in-out delay-50  text-black font-medium rounded-2xl text-md px-6 py-2 rounded-3xl border-[1.5px] hover:border-primary hover:bg-black hover:text-primary  "
+          className=" text-primary text-3xl "
         >
-          Settings
+          <IoSettingsSharp />
         </button>
 
         <button
@@ -43,11 +54,11 @@ function InitiatedCard({ showInBox, setShowInBox, booking }) {
           }
           className={
             showInBox[0] === "requests" && showInBox[1] == booking.bookingid
-              ? "bg-black text-primary font-medium text-md px-6 py-2 rounded-3xl border-[1.5px] border-primary hover:bg-black hover:text-primary"
-              : "bg-primary transition delay-25 text-black font-medium  text-md px-6 py-2 rounded-3xl border-[1.5px] hover:border-primary hover:bg-black hover:text-primary"
+              ? "text-white text-3xl"
+              : "text-primary text-3xl"
           }
         >
-          Requests
+          <FaHandshake />
         </button>
 
         <button
@@ -57,11 +68,11 @@ function InitiatedCard({ showInBox, setShowInBox, booking }) {
           }
           className={
             showInBox[0] === "buddies" && showInBox[1] == booking.bookingid
-              ? "bg-black text-primary font-medium  text-md px-6 py-2 rounded-3xl border-[1.5px] border-primary hover:bg-black hover:text-primary"
-              : "bg-primary  text-black font-medium  text-md px-6 py-2 rounded-3xl border-[1.5px] hover:border-primary hover:bg-black hover:text-primary"
+              ? "text-white text-3xl"
+              : "text-primary  text-3xl"
           }
         >
-          Buddies
+          <FaUserFriends />
         </button>
       </div>
     </div>
