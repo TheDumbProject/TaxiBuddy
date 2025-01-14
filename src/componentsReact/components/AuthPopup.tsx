@@ -9,7 +9,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 const supabaseUrl = "https://vwxhwqhmbjkgqyhrhych.supabase.co";
 
 const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
@@ -19,10 +22,46 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const provider = "google";
 
 async function signIn() {
-  await supabase.auth.signInWithOAuth({
-    provider: provider,
-  });
+  // const res = await supabase.auth.signInWithOAuth({
+  //   provider: provider,
+  // });
 }
+
+// supabase.auth.onAuthStateChange(async (event, session) => {
+//   if (event === "SIGNED_IN") {
+//     console.log(session);
+//     console.log("User successfully signed in:", session?.user.email);
+//     const email = session?.user.email;
+
+//     try {
+//       const res = await axios
+//         .post(
+//           "http://localhost:2707/verifyEmail",
+//           {
+//             email: email,
+//           },
+//           {
+//             headers: {
+//               Authorization: session?.access_token,
+//             },
+//           }
+//         )
+//         .then((response) => {
+//           localStorage.setItem("token", response.data.token);
+//           // setLoggedIn(true);
+//           console.log(response.data);
+//         })
+//         .catch((error) => {
+//           console.log("can't verify user", error);
+//         });
+//     } catch (error) {
+//       console.log("error in verifying user", error);
+//     }
+
+//     // You can also hit your backend endpoint here
+//     // sendTokenToBackend(session.access_token);
+//   }
+// });
 // async  function  signOut() {
 //   await  supabase.auth.signOut();
 //   setUser(null);

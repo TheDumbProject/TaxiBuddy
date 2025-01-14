@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import AuthPopup from "./components/AuthPopup";
 import { FaTaxi } from "react-icons/fa";
+import { useChatStore } from "@/store/useChatStore";
 
 export default function Navbar({ loggedIn, setLoggedIn }) {
+  const { disconnectSocket } = useChatStore();
   //auth code
 
   //end of auth code
@@ -104,6 +106,8 @@ export default function Navbar({ loggedIn, setLoggedIn }) {
           <div className="px-5">
             <Button
               onClick={() => {
+                disconnectSocket();
+
                 setLoggedIn(false);
                 localStorage.removeItem("token");
               }}
